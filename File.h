@@ -3,6 +3,8 @@
 #endif
 
 
+
+
 typedef char* string;
 
 
@@ -11,3 +13,9 @@ typedef char* string;
  */
 
 string readFile(const char* filename);
+/*
+* 
+*/
+
+
+void writeFile(const char* filename,bool overwrite,const char *format,...);
