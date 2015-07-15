@@ -58,3 +58,22 @@ string readFile(const char *filename){
 	fclose(file);
     return minimal;
 }
+void writeFile(const string fileName,bool overwrite,const char *format,...){
+	FILE *file;
+	va_list args;
+	va_start(args,format);
+	if(overwrite){
+		file = fopen(fileName,"w+");
+	}else{
+		file = fopen(fileName,"a+");
+	}
+	if(file == NULL){
+		int err = errno;
+   	    fprintf(stderr, "Error: %s\n", strerror(err));
+   	    return ;
+	}
+	vfprintf(file,format,args);
+	
+	fclose(file);
+	va_end(args);
+}
