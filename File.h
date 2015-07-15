@@ -16,4 +16,4 @@ void writeFile(const string fileName,bool overwrite,const char *format,...);
 
 //clear buffer
 
-void cls_buffer();
+void clsBuffer();
