@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
+#include <strings.h>
 #include <errno.h>
 #include <limits.h>
+#include <stdarg.h>
 #include "File.h"
 
 extern int errno;
 
 string readFile(const char *filename){
-    FILE *file = fopen(filename,"r+");
+	FILE *file = fopen(filename,"r+");
 	
     string buffer = NULL;
     
@@ -22,9 +22,9 @@ string readFile(const char *filename){
         if (n + 1 > capacity){
             if (capacity == 0){
                 capacity = 32;
-	}else if (capacity <= (UINT_MAX / 2)){
+			}else if (capacity <= (UINT_MAX / 2)){
                 capacity *= 2;
-	}
+			}
             else{
                 free(buffer);
                 return NULL;
@@ -45,10 +45,10 @@ string readFile(const char *filename){
 
     if (n == 0 && c == EOF){
     	fclose(file);
- 	int err = errno;
-   	fprintf(stderr, "Error: %s\n", strerror(err));
+ 	   	int err = errno;
+   	    fprintf(stderr, "Error: %s\n", strerror(err));
         return NULL;
-    }
+	}
 
     string minimal = (char *)malloc((n + 1) * sizeof(char));
     strncpy(minimal, buffer, n);
@@ -69,12 +69,21 @@ void writeFile(const string fileName,bool overwrite,const char *format,...){
 		file = fopen(fileName,"a+");
 	}
 	if(file == NULL){
-	    int err = errno;
+		int err = errno;
    	    fprintf(stderr, "Error: %s\n", strerror(err));
+   	    fclose(file);
+   	    va_end(args);
    	    return ;
 	}
 	vfprintf(file,format,args);
 	
 	fclose(file);
 	va_end(args);
+}
+
+void clsBuffer(){
+	int value = getchar();
+	
+	while((value != '\n') && (value != EOF)) 
+		value = getchar();
 }
