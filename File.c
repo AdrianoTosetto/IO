@@ -8,6 +8,55 @@
 
 extern int errno;
 
+string getString(){
+    string buffer = NULL;
+    
+    unsigned int capacity = 0;
+
+    unsigned int n = 0;
+    int c;
+    //reads characters from file until the end of file
+    while ((c = fgetc(stdin)) != '\n'){
+        if (n + 1 > capacity){
+            if (capacity == 0){
+                capacity = 32;
+			}else if (capacity <= (UINT_MAX / 2)){
+                capacity *= 2;
+			}
+            else{
+                free(buffer);
+                return NULL;
+            }
+
+            string temp = (char *) realloc(buffer, capacity * sizeof(char));
+            if (temp == NULL){
+   				int err = errno;
+	 	 	    fprintf(stderr, "Error opening file: %s\n", strerror(err));
+                free(buffer);
+                return NULL;
+            }
+            buffer = temp;
+        }
+
+        buffer[n++] = c;
+    }
+
+    if (n == 0 && c == EOF){
+ 	   	int err = errno;
+   	    fprintf(stderr, "Error: %s\n", strerror(err));
+        return NULL;
+	}
+
+    string minimal = (char *)malloc((n + 1) * sizeof(char));
+    strncpy(minimal, buffer, n);
+    free(buffer);
+
+    minimal[n] = '\0';
+    return minimal;
+	
+}
+
+
 string readFile(const char *filename){
 	FILE *file = fopen(filename,"r+");
 	
@@ -73,12 +122,14 @@ void writeFile(const string fileName,bool overwrite,const char *format,...){
    	    fprintf(stderr, "Error: %s\n", strerror(err));
    	    fclose(file);
    	    va_end(args);
+   	    clsBuffer();
    	    return ;
 	}
 	vfprintf(file,format,args);
 	
 	fclose(file);
 	va_end(args);
+	clsBuffer();
 }
 
 void clsBuffer(){
