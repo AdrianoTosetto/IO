@@ -140,6 +140,12 @@ void clsBuffer(){
 }
 
 char** tokenizer(char *string,const char *delimiter){
+	//this function divides a string and returns an array of tokens
+	//for example, you need to divide a string like "my string" into
+	//tokens, using character space as reference
+	// char **tokens = tokenizer("my string"," ")
+	//printf(tokens[0]) -> my
+	//printf(tokens[1]  -> string
 	char *token;
 	char **tokens = (char **)malloc(strlen(string) * sizeof(char));
 	int  tokensNumber = 0;
