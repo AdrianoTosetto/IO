@@ -20,3 +20,7 @@ void writeFile(const string fileName,bool overwrite,const char *format,...);
 void clsBuffer();
 
 string getString();
+
+//it returns an array of strings
+
+char** tokenizer(char*,const char*);
