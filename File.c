@@ -138,3 +138,22 @@ void clsBuffer(){
 	while((value != '\n') && (value != EOF)) 
 		value = getchar();
 }
+
+char** tokenizer(char *string,const char *delimiter){
+	char *token;
+	char **tokens = (char **)malloc(strlen(string) * sizeof(char));
+	int  tokensNumber = 0;
+	
+	char str[strlen(string)];
+	strcpy(str,string);
+	token = strtok(str,delimiter);
+
+	
+	while(token != NULL){
+		tokens[tokensNumber] = (char *)malloc(sizeof(char)*(strlen(token) + 1));
+	   	strcpy(tokens[tokensNumber],token);
+	   	tokensNumber++;
+		token = strtok(NULL,delimiter);
+	}
+	return tokens;
+}
