@@ -161,5 +161,6 @@ char** tokenizer(char *string,const char *delimiter){
 	   	tokensNumber++;
 		token = strtok(NULL,delimiter);
 	}
+	tokens[tokensNumber] = NULL; //Flag to know where the array stops
 	return tokens;
 }
