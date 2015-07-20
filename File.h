@@ -24,3 +24,5 @@ string getString();
 //it returns an array of strings
 
 char** tokenizer(char*,const char*);
+
+char *append(char*,char*);
