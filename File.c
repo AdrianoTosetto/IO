@@ -122,14 +122,12 @@ void writeFile(const string fileName,bool overwrite,const char *format,...){
    	    fprintf(stderr, "Error: %s\n", strerror(err));
    	    fclose(file);
    	    va_end(args);
-   	    clsBuffer();
    	    return ;
 	}
 	vfprintf(file,format,args);
 	
 	fclose(file);
 	va_end(args);
-	clsBuffer();
 }
 
 void clsBuffer(){
@@ -156,11 +154,25 @@ char** tokenizer(char *string,const char *delimiter){
 
 	
 	while(token != NULL){
-		tokens[tokensNumber] = (char *)malloc(sizeof(char)*(strlen(token) + 1));
-	   	strcpy(tokens[tokensNumber],token);
+		*(tokens+tokensNumber) = (char *)malloc(sizeof(char)*(strlen(token) + 1));
+	   	strcpy(*(tokens+tokensNumber),token);
 	   	tokensNumber++;
 		token = strtok(NULL,delimiter);
 	}
-	tokens[tokensNumber] = NULL; //Flag to know where the array stops
+	//tokens[tokensNumber] can be used instead *(tokens+tokensNumber) to access the elements
+
+	*(tokens+tokensNumber) = NULL; //Flag to know where the array stops
 	return tokens;
+}
+
+//concatenate two strings 
+char* append(char *str,char *app){
+	char *appString = (char *)malloc(sizeof(char) * strlen(str) + sizeof(char) * strlen(app));
+	
+	int i;
+	int j;
+	for(i = 0; i < strlen(str);i++) appString[i] = str[i];
+	for(j = 0; j < strlen(app);j++,i++) appString[i] = app[j];
+	
+	return appString;
 }
