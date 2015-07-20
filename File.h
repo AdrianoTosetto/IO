@@ -1,6 +1,6 @@
 #ifndef _FILE_H
 #define _FILE_H
-#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -26,3 +26,4 @@ string getString();
 char** tokenizer(char*,const char*);
 
 char *append(char*,char*);
+#endif;
