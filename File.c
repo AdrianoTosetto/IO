@@ -20,18 +20,18 @@ string getString(){
         if (n + 1 > capacity){
             if (capacity == 0){
                 capacity = 32;
-			}else if (capacity <= (UINT_MAX / 2)){
-                capacity *= 2;
-			}
-            else{
-                free(buffer);
+	}else if (capacity <= (UINT_MAX / 2)){
+          capacity *= 2;
+	}
+        else{
+        	free(buffer);
                 return NULL;
-            }
+        }
 
-            string temp = (char *) realloc(buffer, capacity * sizeof(char));
-            if (temp == NULL){
-   				int err = errno;
-	 	 	    fprintf(stderr, "Error opening file: %s\n", strerror(err));
+        string temp = (char *) realloc(buffer, capacity * sizeof(char));
+        if (temp == NULL){
+   		int err = errno;
+	 	fprintf(stderr, "Error opening file: %s\n", strerror(err));
                 free(buffer);
                 return NULL;
             }
@@ -42,10 +42,10 @@ string getString(){
     }
 
     if (n == 0 && c == EOF){
- 	   	int err = errno;
-   	    fprintf(stderr, "Error: %s\n", strerror(err));
+ 	int err = errno;
+   	fprintf(stderr, "Error: %s\n", strerror(err));
         return NULL;
-	}
+     }
 
     string minimal = (char *)malloc((n + 1) * sizeof(char));
     strncpy(minimal, buffer, n);
@@ -71,18 +71,17 @@ string readFile(const char *filename){
         if (n + 1 > capacity){
             if (capacity == 0){
                 capacity = 32;
-			}else if (capacity <= (UINT_MAX / 2)){
+	}else if (capacity <= (UINT_MAX / 2)){
                 capacity *= 2;
-			}
-            else{
+	}else{
                 free(buffer);
                 return NULL;
-            }
+        }
 
-            string temp = (char *) realloc(buffer, capacity * sizeof(char));
-            if (temp == NULL){
-   				int err = errno;
-	 	 	    fprintf(stderr, "Error opening file: %s\n", strerror(err));
+        string temp = (char *) realloc(buffer, capacity * sizeof(char));
+        if (temp == NULL){
+   		int err = errno;
+	 	fprintf(stderr, "Error opening file: %s\n", strerror(err));
                 free(buffer);
                 return NULL;
             }
@@ -94,10 +93,10 @@ string readFile(const char *filename){
 
     if (n == 0 && c == EOF){
     	fclose(file);
- 	   	int err = errno;
-   	    fprintf(stderr, "Error: %s\n", strerror(err));
+ 	int err = errno;
+   	fprintf(stderr, "Error: %s\n", strerror(err));
         return NULL;
-	}
+    }
 
     string minimal = (char *)malloc((n + 1) * sizeof(char));
     strncpy(minimal, buffer, n);
@@ -105,7 +104,7 @@ string readFile(const char *filename){
 
     minimal[n] = '\0';
 
-	fclose(file);
+    fclose(file);
     return minimal;
 }
 void writeFile(const string fileName,bool overwrite,const char *format,...){
@@ -118,7 +117,7 @@ void writeFile(const string fileName,bool overwrite,const char *format,...){
 		file = fopen(fileName,"a+");
 	}
 	if(file == NULL){
-		int err = errno;
+	    int err = errno;
    	    fprintf(stderr, "Error: %s\n", strerror(err));
    	    fclose(file);
    	    va_end(args);
