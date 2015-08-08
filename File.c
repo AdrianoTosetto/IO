@@ -169,21 +169,21 @@ char** tokenizer(char *string,const char *delimiter){
 */
 bool match(char *string,char *look_for){
 	
-	int i;
-	int j;
-	int auxtindex;
+	int i; //index for string
+	int j; //index for substring
+	int k; //index to fill the aux string
 
-	char *auxt = (char *)calloc(sizeof(char),strlen(look_for));
+	char *aux_str = (char *)calloc(sizeof(char),strlen(look_for));
 	for(i = 0; i < strlen(string);i++){
-		for(j = i,auxtindex = 0; j < strlen(look_for) + i;j++,auxtindex++){
-			auxt[auxtindex] = string[j];
+		for(j = i,k = 0; j < strlen(look_for) + i;j++,k++){
+			aux_str[k] = string[j];
 		}
-		if(strcmp(look_for,auxt) == 0){
-			free(auxt);
+		if(strcmp(look_for,aux_str) == 0){
+			free(aux_str);
 			return true;
 		}
 	}
-	free(auxt);
+	free(aux_str);
 	return false;
 }
 
