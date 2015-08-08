@@ -163,15 +163,28 @@ char** tokenizer(char *string,const char *delimiter){
 	*(tokens+tokensNumber) = NULL; //Flag to know where the array stops
 	return tokens;
 }
-
-//concatenate two strings 
-char* append(char *str,char *app){
-	char *appString = (char *)malloc(sizeof(char) * strlen(str) + sizeof(char) * strlen(app));
+/*
+* returns if a substring exists in a string
+* text: 
+*/
+bool match(char *string,char *look_for){
 	
 	int i;
 	int j;
-	for(i = 0; i < strlen(str);i++) appString[i] = str[i];
-	for(j = 0; j < strlen(app);j++,i++) appString[i] = app[j];
-	
-	return appString;
+	int auxtindex;
+
+	char *auxt = (char *)calloc(sizeof(char),strlen(look_for));
+	for(i = 0; i < strlen(string);i++){
+		for(j = i,auxtindex = 0; j < strlen(look_for) + i;j++,auxtindex++){
+			auxt[auxtindex] = string[j];
+		}
+		if(strcmp(look_for,auxt) == 0){
+			free(auxt);
+			return true;
+		}
+	}
+	free(auxt);
+	return false;
 }
+
+
