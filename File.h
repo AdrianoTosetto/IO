@@ -25,5 +25,6 @@ string getString();
 
 char** tokenizer(char*,const char*);
 
-char *append(char*,char*);
+bool match(char*,char*);
+
 #endif;
